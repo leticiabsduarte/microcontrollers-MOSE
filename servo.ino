@@ -1,7 +1,7 @@
 #include <Servo.h>
-#include <LiquidCrystal.h:
+#include <LiquidCrystal.h>
 
-LiquidCrystal lcd();
+LiquidCrystal lcd(14,15,16,17,18,19);
 int servoPin = 52;
 int potenPin = A0;
 int contador = 0;
@@ -23,10 +23,10 @@ void setup() {
 void loop() {
   leitura = analogRead(potenPin);
   leitura = map(leitura, 0, 1023, 0, 180);
-  servo.write(leitura);
+  servo1.write(leitura);
   delay(1);
 
-  lcd.setCursor(0,0);
+  lcd.setCursor(0,1);
   lcd.print(leitura);
   delay(500);
 }
