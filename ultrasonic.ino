@@ -1,15 +1,18 @@
 #include <LiquidCrystal.h>
 
+#define tempo 800
+#define verde 8
+#define amarelo 9
+#define vermelho 10
+#define buzzer 13
+#define trigPin 7
+#define echoPin 6
+
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
-int seconds = 0;
 int trigPin = 7;
 int echoPin = 6;
-int vermelho = 10;
-int amarelo = 9;
-int verde = 8;
-int buzzer = 13;
-int tempo = 800;
+
 long duracao;
 int distancia;
 
@@ -34,7 +37,7 @@ digitalWrite(trigPin, LOW);
 pinMode(echoPin, INPUT);
 duracao = pulseIn(echoPin, HIGH);
 
-distancia =200-(duracao/2) / 29,1;
+distancia = 200-(duracao/2) / 29,1;
   
 Serial.print("Nivel: ");
 Serial.print(distancia);
