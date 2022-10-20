@@ -1,0 +1,71 @@
+#include <WiFi.h> 
+
+#define ADC_VREF_mV    5000.0 // in millivolt
+#define ADC_RESOLUTION 2048.0
+#define PIN_LM35       36 // ESP32 pin GIOP36 (ADC0) connected to LM35
+
+const char* ssid = "Ifal"; 
+const char* password = "ifal0a009";
+
+WiFiServer server(80);
+
+String header;
+
+void setup(void) {
+  Serial.begin(115200); 
+  Serial.print("Connecting to Wifi Network");
+  Serial.println(ssid);
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+delay(500);
+Serial.print(".");
+}
+Serial.println("");
+Serial.println("Successfully connected to WiFi.");
+Serial.println("IP address of ESP32 is : ");
+Serial.println(WiFi.localIP());
+server.begin();
+Serial.println("Server started");
+}
+
+void loop(void) 
+{
+  int adcVal = analogRead(PIN_LM35);
+  float milliVolt = adcVal * (ADC_VREF_mV / ADC_RESOLUTION);
+  float tempC = milliVolt / 10;//10mV/
+
+  Serial.print("Temperature: ");
+  Serial.print(tempC);  
+  Serial.println("°C");
+  
+  delay(500);
+
+// This line checks if web client is available or not
+WiFiClient client = server.available();
+// if client is available 'if' condition becomes true
+if (client) 
+{ 
+Serial.println("Web Client connected ");   //print on serial monitor
+String request = client.readStringUntil('\r'); // wait untill http get request ends
+client.println("HTTP/1.1 200 OK");
+client.println("Content-type:text/html");
+client.println("Connection: close");
+client.println();
+
+// This part send HTML page to web client 
+// HTML page contains temperature values 
+client.println("<!DOCTYPE html>\n");
+client.println("<html>\n");
+client.println("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n");
+client.println("<body>\n");
+client.println("<h1>WEB SERVER LM35 SENSOR</h1>\n");
+client.println("<p style=\"color:red\"> Temperature = ");
+client.println("*C</p>\n");
+client.println(tempC);
+client.println("</body></html>"); 
+client.println();
+Serial.println("Client disconnected.");
+Serial.println("");
+}
+
+}
