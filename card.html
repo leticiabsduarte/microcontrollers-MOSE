@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<body>
+    <script defer>
+                function recarregarPagina() {
+                sessionStorage.setItem("recarregou", "true");
+                window.location.reload(); 
+        }
+
+      
+        var recarregou = sessionStorage.getItem("recarregou");
+
+
+        if (recarregou) {
+            sessionStorage.removeItem("recarregou"); 
+            mostrarProdutos();
+        }
+
+    </script>
+
+    <style>
+        .header {
+            text-align: center;
+        }
+        .card {
+            color: rgb(168, 49, 168);
+            display: flex;
+            justify-content: center;
+            align-items: center;   
+            border-radius: 5px;
+            padding: 30px;
+            margin: 20px;
+            width: 100px;
+            border: 2px solid black;
+    }
+    </style>
+
+<h1 class="header">WEB SERVER - LM35</h1>
+
+<div class="card">
+    <p>Temperatura = </p>  <p>°C</p>
+
+</div>
+
+
+</body>
+</html>
