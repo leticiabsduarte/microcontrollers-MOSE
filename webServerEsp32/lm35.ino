@@ -13,12 +13,9 @@ WebServer server(80);
 const char* ssid = "Ifal";
 const char* password = "ifal0a009";
 
-//===============================================================
-// This routine is executed when you open its IP in browser
-//===============================================================
 void handleRoot() {
- String s = MAIN_page; //Read HTML contents
- server.send(200, "text/html", s); //Send web page
+ String s = MAIN_page; 
+ server.send(200, "text/html", s); 
 }
  
 void handleADC() {
