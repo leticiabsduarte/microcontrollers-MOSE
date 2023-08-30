@@ -6,16 +6,16 @@ void setup() {
 }
 
 void loop() {
-pinMode(7,HIGH);
+digitalWrite(7,HIGH);
 delay(3000);
-pinMode(7,LOW);
+digitalWrite(7,LOW);
 
-pinMode(6,HIGH);
+digitalWrite(6,HIGH);
 delay(3000);
-pinMode(6,LOW);
+digitalWrite(6,LOW);
 
-pinMode(5,HIGH);
+digitalWrite(5,HIGH);
 delay(3000);
-pinMode(5,LOW);
+digitalWrite(5,LOW);
 
 }
